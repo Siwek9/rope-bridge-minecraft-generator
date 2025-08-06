@@ -8,18 +8,18 @@ export function findLowestPoint(
   y1: number,
   x2: number,
   y2: number,
-): [number, number] {
+): { x: number; y: number } {
   const testedFunction = (x: number) => {
     return a * Math.cosh((x1 - x) / a) - y1 + y2 - a * Math.cosh((x2 - x) / a);
   };
 
-  const x0 = findValue(testedFunction, (x1 + x2) / 2, Math.abs(x1 - x2));
+  const x0 = findZero(testedFunction, (x1 + x2) / 2, Math.abs(x1 - x2));
   const y0 = y1 - a * Math.cosh((x1 - x0) / a);
 
-  return [x0, y0];
+  return { x: x0, y: y0 };
 }
 
-function findValue(equasion: (x: number) => number, startValue: number, stepCheck: number): number {
+function findZero(equasion: (x: number) => number, startValue: number, stepCheck: number): number {
   let xmin = undefined;
   let xmax = undefined;
   let currentValue: number = 0;
